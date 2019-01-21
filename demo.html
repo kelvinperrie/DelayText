@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-nz">
+<head>
+    <title>make words</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #text-to-output {
+            width: 500px;
+            height: 125px;
+        }
+
+        #output-words-trigger, #output-characters-trigger, #clear-output-trigger {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        Text to output with delay: <br/>
+        <textarea id="text-to-output">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </textarea><br/>
+        Delay between parts: <br/>
+        <input id="output-delay" type="text" value="50" />
+        <div id="output-words-trigger">output as words with delay!</div> <div id="output-characters-trigger">output as characters with delay!</div> <div id="clear-output-trigger">clear output!?!</div>
+        <div class="output-target"></div>
+    </div>
+    <script src="scripts/jquery-3.3.1.min.js"></script>
+    <script src="scripts/everything.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#output-words-trigger").on("click", function () {
+                var textToOutput = $("#text-to-output").val();
+                var outputDelay = $("#output-delay").val();
+                $(".output-target").outputWordsWithDelay(textToOutput, { outputPartDelay: outputDelay, completedCallBack: function () { done(); } });
+            });
+            $("#output-characters-trigger").on("click", function () {
+                var textToOutput = $("#text-to-output").val();
+                var outputDelay = $("#output-delay").val();
+                $(".output-target").outputCharactersWithDelay(textToOutput, { outputPartDelay: outputDelay });
+            });
+            $("#clear-output-trigger").on("click", function () {
+                $(".output-target").html("");
+            });
+        });
+
+        function done() {
+            alert("done!");
+        }
+    </script>
+</body>
+</html>
