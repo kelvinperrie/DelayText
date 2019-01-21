@@ -14,3 +14,6 @@ The only configuration options are the delay between each output and the callbac
 var textToOutput = "Hello world";
 $(".myDiv").outputWordsWithDelay(textToOutput, { outputPartDelay: 200, completedCallBack: function () { myDoneFunction(); } });
 ```
+## Demo
+
+http://htmlpreview.github.io/?https://github.com/kelvinperrie/DelayText/blob/master/demo.html
