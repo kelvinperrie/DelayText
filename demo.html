@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-nz">
 <head>
-    <title>make words</title>
+    <title>Delay Text Demo</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <style>
         body {
@@ -13,7 +13,7 @@
             height: 125px;
         }
 
-        #output-words-trigger, #output-characters-trigger, #clear-output-trigger {
+        #output-words-trigger, #output-characters-trigger, #clear-output-trigger, #partcallback-trigger {
             text-decoration: underline;
             cursor: pointer;
         }
@@ -21,15 +21,26 @@
 </head>
 <body>
     <div>
-        Text to output with delay: <br/>
-        <textarea id="text-to-output">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </textarea><br/>
-        Delay between parts: <br/>
+        <h2>Demo One - basic output</h2>
+        Text to output with delay: <br />
+        <textarea id="text-to-output">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </textarea><br />
+        Delay between parts: <br />
         <input id="output-delay" type="text" value="50" />
         <div id="output-words-trigger">output as words with delay!</div> <div id="output-characters-trigger">output as characters with delay!</div> <div id="clear-output-trigger">clear output!?!</div>
         <div class="output-target"></div>
+        <br />
+        <h2>Demo Two - using the part output callback</h2>
+        as part of our settings pass in a partOutputCallBack that tells us when each part is being put on the page. When that callback is called change the image to have an open mouth. A timer closes the mouth.
+        <div id="partcallback-trigger">click here to make the chicken talk</div>
+        <div id="partcallback-results"></div>
+        <div id="partcallback-state"></div>
+        <div id="demo-chicken">
+            <img src="demo-1-closed.png" alt="the demo chicken" />
+            <span id="demo-chicken-output"></span>
+        </div>
     </div>
     <script src="scripts/jquery-3.3.1.min.js"></script>
-    <script src="scripts/everything.js"></script>
+    <script src="scripts/jquery-delaytext.js"></script>
     <script type="text/javascript">
 
         $(document).ready(function () {
@@ -45,6 +56,24 @@
             });
             $("#clear-output-trigger").on("click", function () {
                 $(".output-target").html("");
+            });
+
+            var partOutputCallBackCounter = 0;
+            $("#partcallback-trigger").on("click", function () {
+                // clear any previous output
+                $("#demo-chicken-output").html('');
+                partOutputCallBackCounter = 0;
+                                 
+                $("#demo-chicken-output").outputWordsWithDelay("Cluck cluck, I'm the demo chicken, I'm pretty great I guess.", {
+                    outputPartDelay: 300, partOutputCallBack: function () {
+                        partOutputCallBackCounter++;
+
+                        $("#demo-chicken img").attr("src", "demo-1-open.png");
+                        timeoutID = window.setTimeout(function (partOutputCallBackCounter) {
+                            $("#demo-chicken img").attr("src", "demo-1-closed.png");
+                        }, 200, partOutputCallBackCounter);
+                    }
+                });
             });
         });
 

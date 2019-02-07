@@ -54,6 +54,9 @@
 
         if (part) {
             element.html(element.html() + part + separator);
+            if (settings.partOutputCallBack) {
+                settings.partOutputCallBack();
+            }
         }
         if (remainingParts.length > 0) {
             part = remainingParts[0];
