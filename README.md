@@ -8,7 +8,7 @@ $(".myDiv").outputCharactersWithDelay("Hello world");
 
 ## Configuration
 
-The only configuration options are the delay between each output and the callback when complete. Pass this as an additional object.
+The only configuration options are the delay between each output and callbacks for when output complete or when each output part (e.g. word) is complete. Pass this as an additional object.
 
 ```
 var textToOutput = "Hello world";
