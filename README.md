@@ -16,4 +16,4 @@ $(".myDiv").outputWordsWithDelay(textToOutput, { outputPartDelay: 200, completed
 ```
 ## Demo
 
-http://htmlpreview.github.io/?https://github.com/kelvinperrie/DelayText/blob/master/demo.html
+https://delaytext.netlify.app/demo.html
